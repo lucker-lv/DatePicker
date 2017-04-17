@@ -51,9 +51,9 @@
             }
 
             ret.push({
-                month: thisMonth,
+                month: thisMonth,   //当前表格需要显示的是哪个月份的日期
                 date: date,
-                showDate: showDate
+                showDate: showDate //当前需要显示几号
             });
         }
         return ret;
