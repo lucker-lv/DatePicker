@@ -7,7 +7,6 @@
 
     datePicker.buildUi = function (year, month) {
         monthData = datePicker.getMonthData(year, month);
-
         var html = '<div class="ui-datepicker-header">' +
                         '<a href="#" class="ui-datepicker-btn ui-datepicker-prev-btn">&lt;</a>' +
                         '<a href="#" class="ui-datepicker-btn ui-datepicker-next-btn">&gt;</a>' +
@@ -33,7 +32,7 @@
                                     if (i % 7 === 0) {
                                         html += '<tr>';
                                     }
-                                    html += '<td>' + date.showDate + '</td>';
+                                    html += '<td data-date="'+date.date+'">' + date.showDate + '</td>';
                                     if (i % 7 === 6) {
                                         html += '</tr>';
                                     }
@@ -57,8 +56,13 @@
 
         var html = datePicker.buildUi(year,month);
 
-        $wrapper = document.createElement('div');
-        $wrapper.className = 'ui-datepicker-wrapper';
+        $wrapper=document.querySelector('.ui-datepicker-wrapper');
+
+        if(!$wrapper){
+            $wrapper = document.createElement('div');
+            $wrapper.className = 'ui-datepicker-wrapper';
+        }
+
         $wrapper.innerHTML = html;
 
         document.body.appendChild($wrapper);
@@ -96,13 +100,46 @@
                 return false;
             }
 
-            //上一月
+            //上一月,下一月
             if($target.classList.contains('ui-datepicker-prev-btn')){
                 datePicker.render('prev');
             }else if($target.classList.contains('ui-datepicker-next-btn')){
                 datePicker.render('next');
             }
-        });
+        },false);
+
+        $wrapper.addEventListener('click',function(e){
+            var $target= e.target;
+
+            if($target.tagName.toLocaleLowerCase()!=='td'){
+                return false;
+            }
+
+            var date=new Date(monthData.year,monthData.month-1,$target.dataset.date);
+
+            $input.value=format(date);
+
+            $wrapper.classList.remove('ui-datepicker-wrapper-show');
+            isOpen=false;
+
+        },false);
+    };
+
+    function format(date){
+        var ret='';
+
+        var padding=function(num){
+            if(num<=9){
+                return '0'+num;
+            }
+            return num;
+        };
+
+        ret+=date.getFullYear()+'-';
+        ret+=padding(date.getMonth()+1)+'-';
+        ret+=padding(date.getDate());
+
+        return ret;
     }
 
 })();
