@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .datepicker{
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 5px;
+            height: 24px;
+            line-height: 24px;
+            width: 230px;
+        }
+        .datepicker:focus{
+            outline: 0 none;
+            border: 1px solid #1abc9c;
+        }
+    </style>
 </head>
 <body>
-    <div class="ui-datepicker-wrapper">
+    <input type="text" class="datepicker">
+    <!--模板结构-->
+    <!--<div class="ui-datepicker-wrapper">
         <div class="ui-datepicker-header">
             <a href="#" class="ui-datepicker-btn ui-datepicker-prev-btn">&lt;</a>
             <a href="#" class="ui-datepicker-btn ui-datepicker-next-btn">&gt;</a>
-            <span class="datepicker-curr-month">2017-04</span>
+            <span class="datepicker-curr-month">2017-12</span>
         </div>
         <div class="ui-datepicker-body">
             <table>
@@ -74,11 +90,11 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>-->
     <script src="date.js"></script>
+    <script src="main.js"></script>
     <script>
-        var monthData=datePicker.getMonthData(2017,4);
-        console.log(monthData);
+        datePicker.init('.datepicker');
     </script>
 </body>
 </html>
