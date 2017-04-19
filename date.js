@@ -11,7 +11,7 @@
         var ret = [];
 
         //当没有传入参数时，使用当前日期
-        if (!year || !month) {
+        if (typeof year==='undefined'|| typeof month==='undefined') {
             var today = new Date();
             year = today.getFullYear();
             month = today.getMonth() + 1;
